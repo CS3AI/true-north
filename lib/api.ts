@@ -1,22 +1,13 @@
+import { fetchLocalArticles } from "./issues";
 import type { ArticlesResponse, IssueId, Locale, Persona } from "./types";
 
 export type { Locale, Persona, IssueId, Article, ArticlesResponse, UiStrings } from "./types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-
 export async function fetchArticles(
   persona: Persona = "all",
   lang: Locale = "zh",
-  issue: IssueId = "001",
+  issue: IssueId = "001"
 ): Promise<ArticlesResponse> {
-  const params = new URLSearchParams({ lang, issue });
-  if (persona !== "all") {
-    params.set("persona", persona);
-  }
-
-  const res = await fetch(`${API_BASE}/api/articles?${params}`, { cache: "no-store" });
-  if (!res.ok) {
-    throw new Error(`API error ${res.status}: ${res.statusText}`);
-  }
-  return res.json();
+  // 绕过所有网络请求，直接通过纯前端算法对本地集进行检索与布阵
+  return fetchLocalArticles(persona, lang, issue);
 }
