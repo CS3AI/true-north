@@ -1,17 +1,11 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: 'export',
+  basePath: '/true-north',
+  assetPrefix: '/true-north',
   images: {
     unoptimized: true,
-    remotePatterns: [
-      { protocol: "https", hostname: "arxiv.org", pathname: "/**" },
-      { protocol: "https", hostname: "cdn.sanity.io", pathname: "/**" },
-      { protocol: "https", hostname: "raw.githubusercontent.com", pathname: "/**" },
-      { protocol: "https", hostname: "cdn.openai.com", pathname: "/**" },
-      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
-    ],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
